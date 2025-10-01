@@ -2,9 +2,9 @@ name: CI tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -13,29 +13,23 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-    # From https://github.com/marketplace/actions/python-poetry-action#workflow-example-cache-the-virtual-environment
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install Python
-      uses: actions/setup-python@v4
+      - name: install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+        # Optionally add a version of uv to install.
+        #   version: "0.7.10"
 
-    - name: Install Poetry 
-      uses: abatilo/actions-poetry@v4
+      - name: install python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
 
-    - name: Setup a local virtual environment (if no poetry.toml file)
-      run: |
-        poetry config virtualenvs.create true --local
-        poetry config virtualenvs.in-project true --local
+      - name: install project dependencies
+        run: uv sync --locked --all-extras --dev
 
-    - uses: actions/cache@v3
-      name: Define a cache for the virtual environment based on the dependencies lock file
-      with:
-        path: ./.venv
-        key: venv-${{ hashFiles('poetry.lock') }}
-
-    - name: Install the project dependencies
-      run: poetry install
-
-    - name: Run the automated tests (for example)
-      run: poetry run pytest -v
-
+      - name: run tests
+        run: uv run pytest -v
