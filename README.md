@@ -1,40 +1,35 @@
+# bq
 
-# bookish
+![Tests](https://github.com/jgafnea/bq/actions/workflows/python.yml/badge.svg)
 
-![Tests](https://github.com/jgafnea/bookish/actions/workflows/python.yml/badge.svg)
+`bq` is a CLI tool for searching and downloading eBooks.
 
-<img src="./assets/example.png" alt="Command output example" style="max-width: 80%; height: auto;">
+![screenshot](./assets/screenshot.png)
 
-`bookish` is a CLI tool created to search and download eBooks without navigating spammy websites.
+## Installation
+
+> **Required**:
+>
+> - Python 3.10+
+> - [pipx](https://github.com/pypa/pipxs)
+> - [uv](https://github.com/astral-sh/uv)
+
+Clone project and install:
+
+```sh
+git clone https://github.com/jgafnea/bq && cd bq
+uv install
+pipx install .
+```
 
 ## Usage
 
-Use Docker or Poetry:
+Search book titles and click links to download:
 
-### Docker
+```sh
+bq "fluent python"
 
-```bash
-git clone https://github.com/jgafnea/bookish && cd bookish
-docker build -t bookish .
-
-# Using with optional alias:
-alias bookish="docker run --rm -it bookish"
-bookish "eloquent javascript"
-
-# Using without alias:
-docker run --rm -it bookish "eloquent javascript"
-```
-
-### Poetry
-
-```bash
-git clone https://github.com/jgafnea/bookish && cd bookish
-poetry install
-
-# Using with optional alias:
-alias bookish="poetry run bookish"
-bookish "eloquent javascript"
-
-# Using without alias:
-poetry run bookish "eloquent javascript"
+ Title            Year   Author            Ext     Size   Download
+ ─────────────────────────────────────────────────────────────────────────────────────
+  Fluent Python   2022   Luciano Ramalho   epub    8 Mb   https://tinyurl.com/2crvr473
 ```
