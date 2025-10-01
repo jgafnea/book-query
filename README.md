@@ -18,7 +18,8 @@ Clone project and install:
 
 ```sh
 git clone https://github.com/jgafnea/book-query && cd book-query
-uv install
+# Formerly `uv install`
+uv sync
 pipx install .
 ```
 
