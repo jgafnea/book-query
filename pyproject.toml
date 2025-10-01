@@ -1,23 +1,26 @@
-[tool.poetry]
-name = "bookish"
+[project]
+name = "bq"
 version = "0.1.0"
-description = ""
-authors = ["jgafnea <jgafnea@mail.com>"]
+description = "Add your description here"
 readme = "README.md"
-packages = [{ include = "src" }]
+authors = [
+    { name = "jgafnea", email = "84107636+jgafnea@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "libgen-api>=1.0.1",
+    "pyshorteners>=1.0.1",
+    "rich>=14.0.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-pyshorteners = "^1.0.1"
-rich = "^13.7.1"
-libgen-api = "^1.0.1"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.2.0"
+[project.scripts]
+bq = "bq.cli:main"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.scripts]
-bookish = 'src.runner:main'
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+]
